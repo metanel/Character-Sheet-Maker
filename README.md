@@ -18,46 +18,6 @@
 
 ## 🚀 שימוש מהיר
 
-### אפשרות 1: השתמש ישירות (ללא התקנה)
-
-1. הורד את הקובץ `character-sheet-maker.html`
-2. פתח אותו בדפדפן (Chrome, Firefox, Safari, Edge)
-3. זהו! התחל להעלות תמונות
-
-### אפשרות 2: העלה ל-GitHub Pages (מומלץ)
-
-#### שלב 1: צור Repository חדש
-
-1. היכנס ל-[GitHub](https://github.com)
-2. לחץ על **New Repository**
-3. שם Repository: `character-sheet-maker`
-4. סמן **Public**
-5. לחץ **Create repository**
-
-#### שלב 2: העלה את הקבצים
-
-```bash
-# בטרמינל, בתיקייה שבה שמרת את הקבצים:
-
-git init
-git add .
-git commit -m "Initial commit - Character Sheet Maker"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/character-sheet-maker.git
-git push -u origin main
-```
-
-#### שלב 3: הפעל GitHub Pages
-
-1. בעמוד ה-Repository, לחץ על **Settings**
-2. בתפריט השמאלי, לחץ על **Pages**
-3. תחת **Source**, בחר: **main** branch
-4. לחץ **Save**
-5. אחרי כדקה, האתר שלך יהיה זמין ב:
-   ```
-   https://YOUR_USERNAME.github.io/character-sheet-maker/character-sheet-maker.html
-   ```
-
 ## 📖 הנחיות שימוש
 
 ### 1️⃣ בחר סוג דף דמות
