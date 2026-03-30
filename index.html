@@ -125,6 +125,115 @@
             margin: 5px 0;
         }
 
+        /* סגנונות חדשים עבור הגדרות המצלמה */
+        .camera-setup {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 4px solid #667eea;
+        }
+
+        .camera-setup h3 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .camera-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .camera-select {
+            width: 100%;
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1em;
+            color: #1e293b;
+            outline: none;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .camera-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .camera-select:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #f1f5f9;
+        }
+
+        .camera-result {
+            display: none;
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+
+        .camera-result.active {
+            display: block;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e0e7ff;
+        }
+
+        .result-label {
+            font-size: 0.85em;
+            color: #818cf8;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 1.1em;
+            color: #1e293b;
+            font-weight: bold;
+        }
+
+        .result-note {
+            font-size: 0.95em;
+            color: #475569;
+            background: rgba(255,255,255,0.7);
+            padding: 12px;
+            border-radius: 8px;
+            border-right: 4px solid #818cf8;
+            line-height: 1.5;
+        }
+
         .upload-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -254,6 +363,7 @@
         .guide-section li {
             padding: 8px 0;
             color: #2d3436;
+            line-height: 1.5;
         }
 
         .guide-section li:before {
@@ -415,7 +525,7 @@
                 border-radius: 0;
             }
             
-            .header, .button-group, .guide-section, .progress-bar, .info-box {
+            .header, .button-group, .guide-section, .progress-bar, .info-box, .camera-setup {
                 display: none;
             }
 
@@ -540,6 +650,42 @@
                 
                 <h2 class="step-title">שלב 2: העלה תמונות</h2>
                 
+                <div class="camera-setup">
+                    <h3>📱 בואו נגדיר את המצלמה למניעת עיוותים</h3>
+                    <div class="camera-grid">
+                        <div class="form-group">
+                            <label for="brand-select">איזה טלפון יש לכם?</label>
+                            <select id="brand-select" class="camera-select" onchange="updateModels()">
+                                <option value="" disabled selected>בחרו יצרן</option>
+                                <option value="apple">Apple (iPhone)</option>
+                                <option value="samsung">Samsung (Galaxy)</option>
+                                <option value="pixel">Google (Pixel)</option>
+                                <option value="xiaomi">Xiaomi / Redmi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="model-select">איזה דגם בדיוק?</label>
+                            <select id="model-select" class="camera-select" onchange="showInstructions()" disabled>
+                                <option value="" disabled selected>בחרו דגם ספציפי</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="phone-instructions" class="camera-result">
+                        <div class="result-grid">
+                            <div class="result-card">
+                                <span class="result-label">🔍 עדשה מומלצת</span>
+                                <span id="inst-lens" class="result-value"></span>
+                            </div>
+                            <div class="result-card">
+                                <span class="result-label">📏 מרחק מהמכשיר</span>
+                                <span id="inst-dist" class="result-value"></span>
+                            </div>
+                        </div>
+                        <p id="inst-note" class="result-note"></p>
+                    </div>
+                </div>
+
                 <div class="stats">
                     <div class="stat-item">
                         <div class="stat-number" id="uploadedCount">0</div>
@@ -594,6 +740,110 @@
         let selectedType = null;
         let uploadedImages = {};
         
+        // נתוני המצלמות
+        const phoneData = {
+            "apple": [
+                { id: "ip_17_promax", name: "iPhone 17 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "מומלץ להשתמש ב-2x (חיתוך חיישן ראשי) למניעת התרחקות מוגזמת, או ב-5x אם יש לך חדר גדול מאוד." },
+                { id: "ip_17_pro", name: "iPhone 17 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "עדשת ה-3x מושלמת לפורטרט שטוח וללא עיוות." },
+                { id: "ip_17_base", name: "iPhone 17 / 17 Plus", lens: "מצלמה ראשית עם זום אופטי 2x", dist: "1.5 - 2 מטרים", note: "לחץ על כפתור ה-2x במסך כדי להפעיל את אורך המוקד האידיאלי." },
+                { id: "ip_16_promax", name: "iPhone 16 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "השתמש ב-2x אם החדר קטן, או ב-5x אם יש לך מספיק מרחק." },
+                { id: "ip_16_pro", name: "iPhone 16 Pro", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "החל מדגם זה הוכנסה עדשת 5x גם ל-Pro. העדף את ה-2x בחדרים קטנים." },
+                { id: "ip_16_base", name: "iPhone 16 / 16 Plus", lens: "מצלמה ראשית עם זום אופטי 2x", dist: "1.5 - 2 מטרים", note: "וודא שאתה במצב 2x ולא 1x כדי למנוע 'אפקט אף גדול'." },
+                { id: "ip_15_promax", name: "iPhone 15 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "השתמש באופציית ה-2x לקבלת מרחק עבודה נוח." },
+                { id: "ip_15_pro", name: "iPhone 15 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר ב-3x. זו העדשה האופטימלית לפרופורציות פנים טבעיות." },
+                { id: "ip_15_base", name: "iPhone 15 / 15 Plus", lens: "מצלמה ראשית עם זום אופטי 2x", dist: "1.5 - 2 מטרים", note: "השתמש באופציית ה-2x המובנית." },
+                { id: "ip_14_promax", name: "iPhone 14 Pro Max", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-3x הייעודית." },
+                { id: "ip_14_pro", name: "iPhone 14 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-3x הייעודית." },
+                { id: "ip_14_base", name: "iPhone 14 / 14 Plus", lens: "מצלמה ראשית (1x) עם התקרבות קלה", dist: "1.5 מטרים", note: "אין עדשת זום ייעודית. התרחק מעט מהמכשיר ועשה זום דיגיטלי ל-1.5x כדי למנוע עיוות." },
+                { id: "ip_13_promax", name: "iPhone 13 Pro Max", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר בעדשת ה-3x. שמור על יציבות מרבית (רצוי טיימר)." },
+                { id: "ip_13_pro", name: "iPhone 13 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר בעדשת ה-3x המובנית." },
+                { id: "ip_13_base", name: "iPhone 13 / 13 Mini", lens: "מצלמה ראשית (1x)", dist: "1.5 מטרים", note: "עמוד בדיוק במרכז. בצע זום דיגיטלי קל ל-1.5x." },
+                { id: "ip_12_promax", name: "iPhone 12 Pro Max", lens: "עדשת טלפוטו 2.5x", dist: "2 מטרים", note: "עדשת ה-2.5x מצוינת למטרה זו. הפעל טיימר כדי למנוע טשטוש." },
+                { id: "ip_12_pro", name: "iPhone 12 Pro", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש בעדשת ה-2x והקפד על תאורה טובה." },
+                { id: "ip_12_base", name: "iPhone 12 / 12 Mini", lens: "מצלמה ראשית (1x)", dist: "1.5 מטרים", note: "מרכז את עצמך לחלוטין. זום דיגיטלי קל ל-1.5x מומלץ." },
+                { id: "ip_11_pro_max", name: "iPhone 11 Pro / 11 Pro Max", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש בעדשת ה-2x האופטית." },
+                { id: "ip_11_base", name: "iPhone 11", lens: "מצלמה ראשית (1x)", dist: "1.5 מטרים", note: "מומלץ לבצע זום דיגיטלי ל-1.5x ולהתרחק." }
+            ],
+            "samsung": [
+                { id: "sam_s26_ultra", name: "Galaxy S26 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "השתמש ב-3x או ב-5x (בהתאם לגודל החדר) לקבלת פורטרט נטול עיוותים לחלוטין." },
+                { id: "sam_s26_base", name: "Galaxy S26 / S26+", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "בחר ב-3x, זו העדשה האופטימלית במכשיר זה." },
+                { id: "sam_s25_ultra", name: "Galaxy S25 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "השתמש בעדשת ה-3x או ב-5x האופטית." },
+                { id: "sam_s25_base", name: "Galaxy S25 / S25+", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "בחר בעדשת ה-3x." },
+                { id: "sam_s24_ultra", name: "Galaxy S24 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "שתיהן מצוינות. ה-5x דורשת מרחק עמידה גדול יותר." },
+                { id: "sam_s24_base", name: "Galaxy S24 / S24+ / S24 FE", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש בעדשת ה-3x לקבלת דיוק מרבי." },
+                { id: "sam_s23_ultra", name: "Galaxy S23 Ultra", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x. אל תשתמש ב-10x, היא מצריכה מרחק לא פרקטי בתוך בית." },
+                { id: "sam_s23_base", name: "Galaxy S23 / S23+ / S23 FE", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "בחר בעדשת ה-3x." },
+                { id: "sam_s22_ultra", name: "Galaxy S22 Ultra", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x." },
+                { id: "sam_s22_base", name: "Galaxy S22 / S22+", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x." },
+                { id: "sam_s21_ultra", name: "Galaxy S21 Ultra", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x וודא שיש מספיק אור למניעת רעש דיגיטלי." },
+                { id: "sam_s21_base", name: "Galaxy S21 / S21+ / S21 FE", lens: "עדשת טלפוטו (היברידית) 3x", dist: "2.5 מטרים", note: "לחץ על כפתור ה-3x באפליקציית המצלמה." },
+                { id: "sam_fold", name: "Galaxy Z Fold (כל הדורות)", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש במצלמות האחוריות בעזרת המסך החיצוני כעינית (Cover Screen Preview)." },
+                { id: "sam_flip", name: "Galaxy Z Flip (כל הדורות)", lens: "מצלמה ראשית 1x (אין טלפוטו)", dist: "1.5 - 2 מטרים", note: "קפל את המכשיר ל-90 מעלות (Flex Mode), התרחק ובצע זום דיגיטלי של 1.5x-2x." }
+            ],
+            "pixel": [
+                { id: "pix_10_pro", name: "Pixel 10 Pro / 10 Pro XL", lens: "עדשת טלפוטו 5x / זום אופטי 2x", dist: "2 - 2.5 מטרים", note: "בחר ב-2x או ב-5x לפי מרחק העמידה האפשרי בחדר." },
+                { id: "pix_10_base", name: "Pixel 10", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "האלגוריתם של גוגל יבצע חיתוך איכותי מאוד ב-2x." },
+                { id: "pix_9_pro", name: "Pixel 9 Pro / 9 Pro XL", lens: "עדשת טלפוטו 5x / זום 2x", dist: "2 - 2.5 מטרים", note: "מומלץ להשתמש ב-2x במצב פורטרט (ללא טשטוש רקע) או במצב רגיל." },
+                { id: "pix_9_base", name: "Pixel 9", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "השתמש בזום ה-2x המובנה." },
+                { id: "pix_8_pro", name: "Pixel 8 Pro", lens: "עדשת טלפוטו 5x / זום 2x", dist: "2 - 2.5 מטרים", note: "השתמש ב-2x או 5x לקבלת פרופורציות נכונות." },
+                { id: "pix_8_base", name: "Pixel 8 / 8a", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "השתמש ב-2x (Super Res Zoom)." },
+                { id: "pix_7_pro", name: "Pixel 7 Pro", lens: "עדשת טלפוטו 5x / זום 2x", dist: "2 - 2.5 מטרים", note: "השתמש ב-2x או 5x." },
+                { id: "pix_7_base", name: "Pixel 7 / 7a", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "השתמש ב-2x (Super Res Zoom)." },
+                { id: "pix_6_pro", name: "Pixel 6 Pro", lens: "עדשת טלפוטו 4x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-4x האופטית. היא מושלמת לכך." },
+                { id: "pix_6_base", name: "Pixel 6 / 6a", lens: "מצלמה ראשית (זום 2x)", dist: "1.5 - 2 מטרים", note: "השתמש ב-2x המובנה במסך." }
+            ],
+            "xiaomi": [
+                { id: "xiaomi_16_ultra", name: "Xiaomi 16 Ultra", lens: "עדשת טלפוטו 3.2x (75mm) / 5x", dist: "2.5 מטרים", note: "עדשת ה-75mm (3.2x) של Leica נחשבת לאחת הטובות בעולם לפורטרטים. השתמש בה." },
+                { id: "xiaomi_16_pro", name: "Xiaomi 16 Pro", lens: "עדשת טלפוטו 3.2x (75mm)", dist: "2.5 מטרים", note: "השתמש בעדשת ה-75mm המותאמת לפורטרט." },
+                { id: "xiaomi_16_base", name: "Xiaomi 16", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_15_ultra", name: "Xiaomi 15 Ultra", lens: "עדשת טלפוטו 3.2x (75mm) / 5x", dist: "2.5 מטרים", note: "מומלץ להשתמש ב-3.2x." },
+                { id: "xiaomi_15_pro", name: "Xiaomi 15 Pro", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_15_base", name: "Xiaomi 15", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_14_ultra", name: "Xiaomi 14 Ultra", lens: "עדשת טלפוטו 3.2x / 5x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_14_pro", name: "Xiaomi 14 / 14 Pro", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_13_ultra", name: "Xiaomi 13 Ultra / 13 Pro", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_13_base", name: "Xiaomi 13", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
+                { id: "xiaomi_12_pro", name: "Xiaomi 12 Pro", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש ב-2x." },
+                { id: "xiaomi_redmi_note", name: "Redmi Note (סדרות Pro/Pro+)", lens: "מצלמה ראשית (זום 2x מובנה)", dist: "1.5 - 2 מטרים", note: "לרוב דגמי ה-Redmi אין טלפוטו אופטי. השתמש בלחצן ה-2x, התרחק מעט ודאג לתאורה חזקה." }
+            ]
+        };
+
+        function updateModels() {
+            const brand = document.getElementById('brand-select').value;
+            const modelSelect = document.getElementById('model-select');
+            const instructions = document.getElementById('phone-instructions');
+            
+            modelSelect.innerHTML = '<option value="" disabled selected>בחרו דגם ספציפי</option>';
+            instructions.classList.remove('active');
+
+            if (brand && phoneData[brand]) {
+                phoneData[brand].forEach(phone => {
+                    const option = document.createElement('option');
+                    option.value = phone.id;
+                    option.textContent = phone.name;
+                    modelSelect.appendChild(option);
+                });
+                modelSelect.disabled = false;
+            } else {
+                modelSelect.disabled = true;
+            }
+        }
+
+        function showInstructions() {
+            const brand = document.getElementById('brand-select').value;
+            const modelId = document.getElementById('model-select').value;
+            const instructions = document.getElementById('phone-instructions');
+            
+            const phone = phoneData[brand].find(p => p.id === modelId);
+            
+            if (phone) {
+                document.getElementById('inst-lens').textContent = phone.lens;
+                document.getElementById('inst-dist').textContent = phone.dist;
+                document.getElementById('inst-note').textContent = phone.note;
+                instructions.classList.add('active');
+            }
+        }
+
         const sheetConfigs = {
             face: {
                 slots: [
@@ -793,16 +1043,12 @@
             let canvasWidth, canvasHeight;
             
             if (selectedType === 'both') {
-                // רוחב עמודה 1080 * 3 עמודות
                 canvasWidth = 3240; 
-                // שורת פנים (1080 * 4/3 = 1440) + שורת גוף (1080 * 16/9 = 1920) = 3360
                 canvasHeight = 3360; 
             } else if (selectedType === 'face') {
-                // 3 עמודות, 2 שורות. יחס 3:4 לכל תא.
                 canvasWidth = 3240;
                 canvasHeight = 2880; 
             } else { 
-                // גוף: 4 עמודות. יחס 9:16 לכל תא.
                 canvasWidth = 4320; 
                 canvasHeight = 1920; 
             }
@@ -825,12 +1071,10 @@
                     if (selectedType === 'both') {
                         cellWidth = 1080;
                         if (index < 3) { 
-                            // שורה עליונה: פנים (3 תמונות) ביחס 3:4
                             cellHeight = 1440;
                             x = index * cellWidth;
                             y = 0;
                         } else { 
-                            // שורה תחתונה: גוף (3 תמונות) ביחס 9:16
                             let bodyIndex = index - 3;
                             cellHeight = 1920;
                             x = bodyIndex * cellWidth;
@@ -841,7 +1085,7 @@
                         cellHeight = 1440;
                         x = (index % 3) * cellWidth;
                         y = Math.floor(index / 3) * cellHeight;
-                    } else { // body
+                    } else { 
                         cellWidth = 1080;
                         cellHeight = 1920;
                         x = (index % 4) * cellWidth;
@@ -925,6 +1169,12 @@
                     card.classList.remove('selected');
                 });
                 document.getElementById('nextBtn1').disabled = true;
+                
+                // איפוס בחירת המצלמה
+                document.getElementById('brand-select').value = "";
+                document.getElementById('model-select').innerHTML = '<option value="" disabled selected>בחרו דגם ספציפי</option>';
+                document.getElementById('model-select').disabled = true;
+                document.getElementById('phone-instructions').classList.remove('active');
             }
         }
 
