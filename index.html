@@ -275,11 +275,33 @@
             transform: scale(1.05);
         }
 
-        .upload-slot img {
+        .upload-slot .example-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25;
+            z-index: 0;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        .upload-slot .label,
+        .upload-slot .icon,
+        .upload-slot .hint {
+            position: relative;
+            z-index: 1;
+        }
+
+        .upload-slot img:not(.example-img) {
             max-width: 100%;
             max-height: 220px;
             border-radius: 10px;
             object-fit: contain;
+            position: relative;
+            z-index: 1;
         }
 
         .upload-slot .label {
@@ -287,6 +309,7 @@
             color: #667eea;
             margin-bottom: 10px;
             font-size: 1.1em;
+            text-shadow: 0 1px 3px rgba(255,255,255,0.8);
         }
 
         .upload-slot.filled .label {
@@ -296,19 +319,25 @@
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.9em;
+            text-shadow: none;
         }
 
         .upload-slot .icon {
             font-size: 2.5em;
             margin-bottom: 10px;
-            opacity: 0.7;
+            opacity: 0.8;
+            filter: drop-shadow(0 2px 4px rgba(255,255,255,0.5));
         }
 
         .upload-slot .hint {
             font-size: 0.85em;
-            color: #666;
+            color: #444;
             margin-top: 10px;
             line-height: 1.4;
+            background: rgba(255,255,255,0.7);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
         }
 
         .upload-slot input[type="file"] {
@@ -883,12 +912,12 @@
             },
             both: {
                 slots: [
-                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה' },
-                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות (מומלץ לצד ימין)' },
-                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות (לאותו צד)' },
-                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם' },
-                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם (מופנה לאותו צד)' },
-                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם' }
+                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890108/%D7%A6%D7%95%D7%A8_%D7%A4%D7%95%D7%A8%D7%98%D7%A8%D7%98_%D7%A4%D7%95%D7%98%D7%95-%D7%A8%D7%99%D7%90%D7%9C%D7%99%D7%A1%D7%98%D7%99_202603301918_t2sz6v.jpg' },
+                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות (מומלץ לצד ימין)', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890103/Create_photorealistic_portrait_202603301922_wfcstt.jpg' },
+                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות (לאותו צד)', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890059/Photo-realistic_portrait_side_202603301927_kvnxwx.jpg' },
+                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890088/Character_standing__full_202603301922_j1mvo2.jpg' },
+                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם (מופנה לאותו צד)', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890063/%D7%AA%D7%99%D7%99%D7%A6%D7%A8_%D7%AA%D7%9E%D7%95%D7%A0%D7%AA_%D7%9E%D7%A8%D7%90%D7%94_202603301925_zg0kud.jpg' },
+                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890068/Character_back_view_202603301923_jo1cwb.jpg' }
                 ],
                 guide: `
                     <h3>🎯 הנחיות לדף דמות ממוקד ואיכותי (מותאם AI):</h3>
@@ -942,7 +971,11 @@
                 const slotDiv = document.createElement('div');
                 slotDiv.className = 'upload-slot';
                 slotDiv.setAttribute('data-slot-id', slot.id);
+                
+                let exampleHtml = slot.exampleImg ? `<img src="${slot.exampleImg}" class="example-img" alt="דוגמה לתמונה">` : '';
+                
                 slotDiv.innerHTML = `
+                    ${exampleHtml}
                     <button class="remove-btn" onclick="removeImage('${slot.id}', event)">✕</button>
                     <div class="label">${slot.label}</div>
                     <div class="icon">📷</div>
