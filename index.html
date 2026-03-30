@@ -520,7 +520,7 @@
                         <p>דף דמות מלא למשחקים, סרטים, ואנימציה מקצועית</p>
                         <ul>
                             <li>3 פורטרטים מקרוב (שורה עליונה)</li>
-                            <li>4 צילומי גוף מלא (שורה תחתונה)</li>
+                            <li>3 צילומי גוף מלא (שורה תחתונה)</li>
                             <li>מערך נטול שוליים למקסום רזולוציה ב-AI</li>
                         </ul>
                     </div>
@@ -634,22 +634,22 @@
             },
             both: {
                 slots: [
-                    { id: 'face-front', label: 'פנים - חזית', hint: '📸 פורטרט מקרוב חזית' },
-                    { id: 'face-left', label: 'פנים - פרופיל שמאל', hint: '📸 פורטרט מקרוב שמאל' },
-                    { id: 'face-right', label: 'פנים - פרופיל ימין', hint: '📸 פורטרט מקרוב ימין' },
-                    { id: 'body-front', label: 'גוף - חזית', hint: '📸 גוף מלא פונה קדימה' },
-                    { id: 'body-left', label: 'גוף - פרופיל שמאל', hint: '📸 גוף מלא פרופיל שמאל' },
-                    { id: 'body-right', label: 'גוף - פרופיל ימין', hint: '📸 גוף מלא פרופיל ימין' },
-                    { id: 'body-back', label: 'גוף - גב', hint: '📸 גוף מלא מאחור' }
+                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה' },
+                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות הצידה' },
+                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות הצידה' },
+                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם' },
+                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם 90 מעלות' },
+                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם' }
                 ],
                 guide: `
-                    <h3>🎯 הנחיות לדף דמות מלא (מותאם AI):</h3>
+                    <h3>🎯 הנחיות לדף דמות ממוקד ואיכותי (מותאם AI):</h3>
                     <ul>
-                        <li><strong>תמונות פנים (שורה עליונה):</strong> חייבות להיות ביחס 3:4 (פורטרט אנכי).</li>
-                        <li><strong>תמונות גוף (שורה תחתונה):</strong> חייבות להיות ביחס 9:16 (צילום סמארטפון אנכי).</li>
-                        <li>העלאה ביחסים אלו תייצר קולאז' במבנה ריבועי מושלם נטול שוליים לבנים.</li>
-                        <li>רקע אחיד ותאורה זהה לכל התמונות.</li>
-                        <li>השתמש בחצובה לייצוב ושמירת מרחק עקבי.</li>
+                        <li><strong>תמונה 1: חזית פנים (Front Face).</strong> יחס של 3:4 (Portrait). זווית: חזיתית לחלוטין מול המצלמה. חיתוך: מקודקוד הראש ועד קו החזה. תאורת סטודיו רכה ואחידה. רקע סטודיו בצבע ניטרלי, חלק ונקי מכל חפץ, שאינו מחזיר אור צבעוני (Color cast).</li>
+                        <li><strong>תמונה 2: זווית שלושת-רבעי (3/4 Face).</strong> יחס של 3:4. זווית: 3/4 פנים, הראש מסובב קלות הצידה כך שרואים את עומק האף והלחי. חיתוך: מקודקוד עד החזה. רקע ותאורת סטודיו ניטרלית.</li>
+                        <li><strong>תמונה 3: פרופיל פנים (Profile Face).</strong> יחס של 3:4. זווית: פרופיל צד מלא, מופנה 90 מעלות. הצג במדויק את קו הלסת, האף ומבנה הגולגולת. חיתוך: מקודקוד עד החזה. רקע ותאורה ניטרליים.</li>
+                        <li><strong>תמונה 4: חזית גוף מלא (Front Full Body).</strong> יחס 9:16 (Tall Portrait). זווית: חזית מלאה, גוף שלם מכף רגל ועד קודקוד הראש פונה ישירות למצלמה. יציבה: עמידה טבעית, רגועה וניטרלית. ביגוד: פשוט, חלק וללא הדפסים. ללא חיתוך איברים. תאורה ורקע ניטרליים ללא החזרות אור.</li>
+                        <li><strong>תמונה 5: פרופיל גוף מלא (Side Full Body).</strong> יחס 9:16. זווית: צד מלא, גוף שלם מכף רגל עד קודקוד, 90 מעלות למצלמה. יציבה טבעית להצגת הפרופורציות. ללא חיתוך איברים. תאורה ורקע ניטרליים.</li>
+                        <li><strong>תמונה 6: גב גוף מלא (Back Full Body).</strong> יחס 9:16. זווית: מבט מאחור, גוף שלם מכף רגל ועד קודקוד. יציבה טבעית, תאורה רכה השומרת על טקסטורת הבגד. רקע ניטרלי ללא צללים וחפצים.</li>
                     </ul>
                 `
             }
@@ -658,7 +658,6 @@
         function selectSheetType(type) {
             selectedType = type;
             
-            // Update UI
             document.querySelectorAll('.sheet-type-card').forEach(card => {
                 card.classList.remove('selected');
             });
@@ -791,20 +790,21 @@
             const ctx = canvas.getContext('2d');
             const config = sheetConfigs[selectedType];
             
-            // רוחב בסיס שמתחלק ב-3 וגם ב-4
-            let canvasWidth = 3150; 
-            let canvasHeight;
+            let canvasWidth, canvasHeight;
             
-            // הגדרת גובה ה-Canvas בהתאם ליחסי התמונה
             if (selectedType === 'both') {
-                // שורת פנים (1400) + שורת גוף (1400)
-                canvasHeight = 2800; 
+                // רוחב עמודה 1080 * 3 עמודות
+                canvasWidth = 3240; 
+                // שורת פנים (1080 * 4/3 = 1440) + שורת גוף (1080 * 16/9 = 1920) = 3360
+                canvasHeight = 3360; 
             } else if (selectedType === 'face') {
-                // 2 שורות פנים של 1400
-                canvasHeight = 2800; 
+                // 3 עמודות, 2 שורות. יחס 3:4 לכל תא.
+                canvasWidth = 3240;
+                canvasHeight = 2880; 
             } else { 
-                // שורת גוף אחת
-                canvasHeight = 1400; 
+                // גוף: 4 עמודות. יחס 9:16 לכל תא.
+                canvasWidth = 4320; 
+                canvasHeight = 1920; 
             }
             
             canvas.width = canvasWidth;
@@ -823,28 +823,27 @@
                     let x, y, cellWidth, cellHeight;
                     
                     if (selectedType === 'both') {
+                        cellWidth = 1080;
                         if (index < 3) { 
-                            // שורה עליונה: פנים (3 תמונות)
-                            cellWidth = canvasWidth / 3; 
-                            cellHeight = 1400;
+                            // שורה עליונה: פנים (3 תמונות) ביחס 3:4
+                            cellHeight = 1440;
                             x = index * cellWidth;
                             y = 0;
                         } else { 
-                            // שורה תחתונה: גוף (4 תמונות)
+                            // שורה תחתונה: גוף (3 תמונות) ביחס 9:16
                             let bodyIndex = index - 3;
-                            cellWidth = canvasWidth / 4; 
-                            cellHeight = 1400;
+                            cellHeight = 1920;
                             x = bodyIndex * cellWidth;
-                            y = 1400;
+                            y = 1440;
                         }
                     } else if (selectedType === 'face') {
-                        cellWidth = canvasWidth / 3;
-                        cellHeight = 1400;
+                        cellWidth = 1080;
+                        cellHeight = 1440;
                         x = (index % 3) * cellWidth;
                         y = Math.floor(index / 3) * cellHeight;
                     } else { // body
-                        cellWidth = canvasWidth / 4;
-                        cellHeight = 1400;
+                        cellWidth = 1080;
+                        cellHeight = 1920;
                         x = (index % 4) * cellWidth;
                         y = 0;
                     }
@@ -862,7 +861,6 @@
                     
                     ctx.drawImage(img, offsetX, offsetY, scaledW, scaledH);
                     
-                    // ציור טקסט ומסגרת רק בתצוגה או בהדפסה, אך לא להורדה הנקייה ל-AI
                     if (includeText) {
                         ctx.strokeStyle = '#667eea';
                         ctx.lineWidth = 6;
@@ -903,7 +901,6 @@
             
             setTimeout(() => {
                 const offscreenCanvas = document.createElement('canvas');
-                // יצירת הקולאז' עבור ההורדה ללא טקסט ומסגרות
                 drawCollageToCanvas(offscreenCanvas, false, () => {
                     const link = document.createElement('a');
                     const timestamp = new Date().toISOString().slice(0,10);
