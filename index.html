@@ -281,11 +281,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 0.25;
+            object-fit: contain;
+            opacity: 0.3;
             z-index: 0;
             pointer-events: none;
             border-radius: 12px;
+            padding: 15px;
         }
 
         .upload-slot .label,
@@ -875,12 +876,12 @@
         const sheetConfigs = {
             face: {
                 slots: [
-                    { id: 'front', label: 'חזית', hint: '📸 פנים קדימה ישירות למצלמה' },
-                    { id: 'back', label: 'גב ראש', hint: '📸 גב הראש באמצע' },
-                    { id: 'right', label: 'פרופיל ימין', hint: '📸 צד ימין של הפנים (90°)' },
-                    { id: 'left', label: 'פרופיל שמאל', hint: '📸 צד שמאל של הפנים (90°)' },
-                    { id: 'back-right', label: 'חצי-פרופיל אחורי ימין', hint: '📸 45° מאחור מצד ימין' },
-                    { id: 'back-left', label: 'חצי-פרופיל אחורי שמאל', hint: '📸 45° מאחור מצד שמאל' }
+                    { id: 'front', label: 'חזית', hint: '📸 פנים קדימה ישירות למצלמה | יחס 3:4' },
+                    { id: 'back', label: 'גב ראש', hint: '📸 גב הראש באמצע | יחס 3:4' },
+                    { id: 'right', label: 'פרופיל ימין', hint: '📸 צד ימין של הפנים (90°) | יחס 3:4' },
+                    { id: 'left', label: 'פרופיל שמאל', hint: '📸 צד שמאל של הפנים (90°) | יחס 3:4' },
+                    { id: 'back-right', label: 'חצי-פרופיל אחורי ימין', hint: '📸 45° מאחור מצד ימין | יחס 3:4' },
+                    { id: 'back-left', label: 'חצי-פרופיל אחורי שמאל', hint: '📸 45° מאחור מצד שמאל | יחס 3:4' }
                 ],
                 guide: `
                     <h3>🎯 הנחיות לצילום פנים מקצועי:</h3>
@@ -895,10 +896,10 @@
             },
             body: {
                 slots: [
-                    { id: 'front', label: 'חזית', hint: '📸 גוף מלא, תנוחת A טבעית' },
-                    { id: 'back', label: 'גב', hint: '📸 גוף מלא מאחור' },
-                    { id: 'right', label: 'פרופיל ימין', hint: '📸 צד ימין, גוף מלא' },
-                    { id: 'left', label: 'פרופיל שמאל', hint: '📸 צד שמאל, גוף מלא' }
+                    { id: 'front', label: 'חזית', hint: '📸 גוף מלא, תנוחת A טבעית | יחס 9:16' },
+                    { id: 'back', label: 'גב', hint: '📸 גוף מלא מאחור | יחס 9:16' },
+                    { id: 'right', label: 'פרופיל ימין', hint: '📸 צד ימין, גוף מלא | יחס 9:16' },
+                    { id: 'left', label: 'פרופיל שמאל', hint: '📸 צד שמאל, גוף מלא | יחס 9:16' }
                 ],
                 guide: `
                     <h3>🎯 הנחיות לצילום גוף מקצועי:</h3>
@@ -912,12 +913,12 @@
             },
             both: {
                 slots: [
-                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890108/%D7%A6%D7%95%D7%A8_%D7%A4%D7%95%D7%A8%D7%98%D7%A8%D7%98_%D7%A4%D7%95%D7%98%D7%95-%D7%A8%D7%99%D7%90%D7%9C%D7%99%D7%A1%D7%98%D7%99_202603301918_t2sz6v.jpg' },
-                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות (מומלץ לצד ימין)', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890103/Create_photorealistic_portrait_202603301922_wfcstt.jpg' },
-                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות (לאותו צד)', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890059/Photo-realistic_portrait_side_202603301927_kvnxwx.jpg' },
-                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890088/Character_standing__full_202603301922_j1mvo2.jpg' },
-                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם (מופנה לאותו צד)', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890063/%D7%AA%D7%99%D7%99%D7%A6%D7%A8_%D7%AA%D7%9E%D7%95%D7%A0%D7%AA_%D7%9E%D7%A8%D7%90%D7%94_202603301925_zg0kud.jpg' },
-                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890068/Character_back_view_202603301923_jo1cwb.jpg' }
+                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה יחס 3:4', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890108/%D7%A6%D7%95%D7%A8_%D7%A4%D7%95%D7%A8%D7%98%D7%A8%D7%98_%D7%A4%D7%95%D7%98%D7%95-%D7%A8%D7%99%D7%90%D7%9C%D7%99%D7%A1%D7%98%D7%99_202603301918_t2sz6v.jpg' },
+                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות (מומלץ לצד ימין) יחס 3:4', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890103/Create_photorealistic_portrait_202603301922_wfcstt.jpg' },
+                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות (לאותו צד) יחס 3:4', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890059/Photo-realistic_portrait_side_202603301927_kvnxwx.jpg' },
+                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם יחס 9:16', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890088/Character_standing__full_202603301922_j1mvo2.jpg' },
+                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם (מופנה לאותו צד) יחס 9:16', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890063/%D7%AA%D7%99%D7%99%D7%A6%D7%A8_%D7%AA%D7%9E%D7%95%D7%A0%D7%AA_%D7%9E%D7%A8%D7%90%D7%94_202603301925_zg0kud.jpg' },
+                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם יחס 9:16', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890068/Character_back_view_202603301923_jo1cwb.jpg' }
                 ],
                 guide: `
                     <h3>🎯 הנחיות לדף דמות ממוקד ואיכותי (מותאם AI):</h3>
