@@ -480,7 +480,6 @@
         </div>
 
         <div class="content">
-            <!-- Step 1: Choose Type -->
             <div class="step active" id="step1">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 33%"></div>
@@ -534,7 +533,6 @@
                 </div>
             </div>
 
-            <!-- Step 2: Upload Images -->
             <div class="step" id="step2">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 66%"></div>
@@ -554,12 +552,10 @@
                 </div>
 
                 <div class="guide-section" id="guideSection">
-                    <!-- Dynamic guide content -->
-                </div>
+                    </div>
 
                 <div class="upload-grid" id="uploadGrid">
-                    <!-- Dynamic upload slots -->
-                </div>
+                    </div>
 
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="goToStep(1)">➡ חזור</button>
@@ -569,7 +565,6 @@
                 </div>
             </div>
 
-            <!-- Step 3: Preview and Download -->
             <div class="step" id="step3">
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: 100%"></div>
@@ -588,7 +583,7 @@
 
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="goToStep(2)">➡ ערוך תמונות</button>
-                    <button class="btn btn-success" onclick="downloadCollage()">📥 הורד תמונה</button>
+                    <button class="btn btn-success" onclick="downloadCollage()">📥 הורד תמונה (ללא טקסט)</button>
                     <button class="btn" onclick="printCollage()">🖨️ הדפס</button>
                     <button class="btn btn-secondary" onclick="resetApp()">🔄 התחל מחדש</button>
                 </div>
@@ -807,72 +802,71 @@
             document.getElementById('nextBtn2').disabled = !allUploaded;
         }
 
-        function generateCollage() {
-            document.getElementById('loadingOverlay').classList.add('active');
+        // פונקציית עזר לציור הקנבס - תומכת בציור עם או בלי טקסט
+        function drawCollageToCanvas(canvas, includeText, onComplete) {
+            const ctx = canvas.getContext('2d');
+            const config = sheetConfigs[selectedType];
             
-            setTimeout(() => {
-                const canvas = document.getElementById('previewCanvas');
-                const ctx = canvas.getContext('2d');
-                const config = sheetConfigs[selectedType];
-                
-                let canvasWidth, canvasHeight, cols, rows;
-                
-                if (selectedType === 'both') {
-                    cols = 4;
-                    rows = 2;
-                    canvasWidth = 4800;
-                    canvasHeight = 3200;
-                } else if (selectedType === 'face') {
-                    cols = 3;
-                    rows = 2;
-                    canvasWidth = 3600;
-                    canvasHeight = 2400;
-                } else { // body
-                    cols = 4;
-                    rows = 1;
-                    canvasWidth = 4800;
-                    canvasHeight = 1600;
-                }
-                
-                canvas.width = canvasWidth;
-                canvas.height = canvasHeight;
-                
-                // White background
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-                
-                const cellWidth = canvasWidth / cols;
-                const cellHeight = canvasHeight / rows;
-                const padding = 50;
-                
-                let loadedCount = 0;
-                const totalImages = config.slots.length;
-                
-                config.slots.forEach((slot, index) => {
-                    const img = new Image();
-                    img.onload = function() {
-                        const col = index % cols;
-                        const row = Math.floor(index / cols);
-                        
-                        const x = col * cellWidth + padding;
-                        const y = row * cellHeight + padding;
-                        const w = cellWidth - (padding * 2);
-                        const h = cellHeight - (padding * 2);
-                        
-                        // Draw image
-                        const scale = Math.min(w / img.width, h / img.height);
-                        const scaledW = img.width * scale;
-                        const scaledH = img.height * scale;
-                        const offsetX = x + (w - scaledW) / 2;
-                        const offsetY = y + (h - scaledH) / 2;
-                        
-                        ctx.drawImage(img, offsetX, offsetY, scaledW, scaledH);
-                        
-                        // Draw border
-                        ctx.strokeStyle = '#667eea';
-                        ctx.lineWidth = 6;
-                        ctx.strokeRect(x - 3, y - 3, w + 6, h + 6);
-                        
+            let canvasWidth, canvasHeight, cols, rows;
+            
+            if (selectedType === 'both') {
+                cols = 4;
+                rows = 2;
+                canvasWidth = 4800;
+                canvasHeight = 3200;
+            } else if (selectedType === 'face') {
+                cols = 3;
+                rows = 2;
+                canvasWidth = 3600;
+                canvasHeight = 2400;
+            } else { // body
+                cols = 4;
+                rows = 1;
+                canvasWidth = 4800;
+                canvasHeight = 1600;
+            }
+            
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+            
+            // White background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+            
+            const cellWidth = canvasWidth / cols;
+            const cellHeight = canvasHeight / rows;
+            const padding = 50;
+            
+            let loadedCount = 0;
+            const totalImages = config.slots.length;
+            
+            config.slots.forEach((slot, index) => {
+                const img = new Image();
+                img.onload = function() {
+                    const col = index % cols;
+                    const row = Math.floor(index / cols);
+                    
+                    const x = col * cellWidth + padding;
+                    const y = row * cellHeight + padding;
+                    const w = cellWidth - (padding * 2);
+                    const h = cellHeight - (padding * 2);
+                    
+                    // Draw image
+                    const scale = Math.min(w / img.width, h / img.height);
+                    const scaledW = img.width * scale;
+                    const scaledH = img.height * scale;
+                    const offsetX = x + (w - scaledW) / 2;
+                    const offsetY = y + (h - scaledH) / 2;
+                    
+                    ctx.drawImage(img, offsetX, offsetY, scaledW, scaledH);
+                    
+                    // Draw border
+                    ctx.strokeStyle = '#667eea';
+                    ctx.lineWidth = 6;
+                    ctx.strokeRect(x - 3, y - 3, w + 6, h + 6);
+                    
+                    // מניעת ציור טקסט ורקע במקרה של הורדה נקייה
+                    if (includeText) {
                         // Draw label background
                         ctx.fillStyle = 'rgba(102, 126, 234, 0.9)';
                         ctx.fillRect(x, y - 70, w, 70);
@@ -882,25 +876,47 @@
                         ctx.font = 'bold 48px Arial';
                         ctx.textAlign = 'center';
                         ctx.fillText(slot.label, x + w/2, y - 20);
-                        
-                        loadedCount++;
-                        if (loadedCount === totalImages) {
-                            document.getElementById('loadingOverlay').classList.remove('active');
-                            goToStep(3);
-                        }
-                    };
-                    img.src = uploadedImages[slot.id];
+                    }
+                    
+                    loadedCount++;
+                    if (loadedCount === totalImages) {
+                        if(onComplete) onComplete();
+                    }
+                };
+                img.src = uploadedImages[slot.id];
+            });
+        }
+
+        function generateCollage() {
+            document.getElementById('loadingOverlay').classList.add('active');
+            
+            setTimeout(() => {
+                const canvas = document.getElementById('previewCanvas');
+                // יצירת קנבס התצוגה המקדימה כולל טקסט
+                drawCollageToCanvas(canvas, true, () => {
+                    document.getElementById('loadingOverlay').classList.remove('active');
+                    goToStep(3);
                 });
             }, 100);
         }
 
         function downloadCollage() {
-            const canvas = document.getElementById('previewCanvas');
-            const link = document.createElement('a');
-            const timestamp = new Date().toISOString().slice(0,10);
-            link.download = `character-sheet-${selectedType}-${timestamp}.png`;
-            link.href = canvas.toDataURL('image/png', 1.0);
-            link.click();
+            document.getElementById('loadingOverlay').classList.add('active');
+            
+            setTimeout(() => {
+                // יצירת קנבס וירטואלי שאינו קיים במסך
+                const offscreenCanvas = document.createElement('canvas');
+                
+                // ציור הקולאז' ללא טקסט
+                drawCollageToCanvas(offscreenCanvas, false, () => {
+                    const link = document.createElement('a');
+                    const timestamp = new Date().toISOString().slice(0,10);
+                    link.download = `character-sheet-${selectedType}-${timestamp}.png`;
+                    link.href = offscreenCanvas.toDataURL('image/png', 1.0);
+                    link.click();
+                    document.getElementById('loadingOverlay').classList.remove('active');
+                });
+            }, 100);
         }
 
         function printCollage() {
