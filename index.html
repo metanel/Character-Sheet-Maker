@@ -476,7 +476,7 @@
     <div class="container">
         <div class="header">
             <h1>🎨 יוצר דף דמות מקצועי</h1>
-            <p>צור קולאז' מקצועי לדף דמות בקלות ובמהירות - 100% פרטי ומאובטח</p>
+            <p>צור קולאז' מקצועי לדף דמות בקלות ובמהירות - מותאם למודלי AI</p>
         </div>
 
         <div class="content">
@@ -519,9 +519,9 @@
                         <h3>פנים + גוף (FULL)</h3>
                         <p>דף דמות מלא למשחקים, סרטים, ואנימציה מקצועית</p>
                         <ul>
-                            <li>4 צילומי גוף מלא</li>
-                            <li>3 פורטרטים מקרוב</li>
-                            <li>מערך מקצועי בשתי שורות</li>
+                            <li>3 פורטרטים מקרוב (שורה עליונה)</li>
+                            <li>4 צילומי גוף מלא (שורה תחתונה)</li>
+                            <li>מערך נטול שוליים למקסום רזולוציה ב-AI</li>
                         </ul>
                     </div>
                 </div>
@@ -573,8 +573,7 @@
                 <h2 class="step-title">שלב 3: דף הדמות שלך מוכן! 🎉</h2>
                 
                 <div class="info-box">
-                    <strong>💡 טיפ:</strong> התמונה מוכנה להדפסה באיכות גבוהה (300 DPI). 
-                    לחץ על "הורד" כדי לשמור אותה במחשב שלך או "הדפס" להדפסה ישירה.
+                    <strong>💡 שים לב:</strong> להזנה למודלי AI, השתמש בכפתור "הורד תמונה (ללא טקסט)" אשר שומר את התמונה כרפרנס נקי לחלוטין.
                 </div>
 
                 <div class="preview-container">
@@ -584,7 +583,7 @@
                 <div class="button-group">
                     <button class="btn btn-secondary" onclick="goToStep(2)">➡ ערוך תמונות</button>
                     <button class="btn btn-success" onclick="downloadCollage()">📥 הורד תמונה (ללא טקסט)</button>
-                    <button class="btn" onclick="printCollage()">🖨️ הדפס</button>
+                    <button class="btn" onclick="printCollage()">🖨️ הדפס מתווה עם טקסט</button>
                     <button class="btn btn-secondary" onclick="resetApp()">🔄 התחל מחדש</button>
                 </div>
             </div>
@@ -608,13 +607,11 @@
                 guide: `
                     <h3>🎯 הנחיות לצילום פנים מקצועי:</h3>
                     <ul>
-                        <li>השתמש ברקע אחיד (לבן, אפור או כחול)</li>
-                        <li>תאורה אחידה ללא צללים חזקים</li>
-                        <li>הפנים במרכז התמונה</li>
-                        <li>ביטוי פנים נייטרלי (ללא חיוך מוגזם)</li>
-                        <li>שיער מסודר - אוזניים וצוואר חשופים</li>
-                        <li>הזוויות האחוריות קריטיות לסיבוב 360° מדויק</li>
-                        <li>מרחק זהה מהמצלמה בכל התמונות</li>
+                        <li><strong>יחס גובה-רוחב קריטי:</strong> אנא העלה תמונות ביחס 3:4 (פורטרט אנכי סטנדרטי) כדי למנוע היווצרות שוליים לבנים.</li>
+                        <li>השתמש ברקע אחיד (לבן, אפור או כחול) ללא צללים חזקים.</li>
+                        <li>הפנים במרכז התמונה, ביטוי פנים נייטרלי.</li>
+                        <li>שיער מסודר - אוזניים וצוואר חשופים.</li>
+                        <li>מרחק זהה מהמצלמה בכל התמונות.</li>
                     </ul>
                 `
             },
@@ -628,36 +625,31 @@
                 guide: `
                     <h3>🎯 הנחיות לצילום גוף מקצועי:</h3>
                     <ul>
-                        <li>גוף מלא בכל התמונות (מהראש ועד הרגליים)</li>
-                        <li>תנוחת A טבעית (רגליים מעט פתוחות, ידיים לצדדים)</li>
-                        <li>ביגוד צמוד שמראה צורת גוף ברורה</li>
-                        <li>רקע אחיד וניקיון - ללא אלמנטים מסיחים</li>
-                        <li>מצלמה בגובה המותניים</li>
-                        <li>מרחק אחיד בכל התמונות (כ-3-4 מטרים)</li>
-                        <li>תאורה אחידה על כל הגוף</li>
+                        <li><strong>יחס גובה-רוחב קריטי:</strong> אנא העלה תמונות ביחס 9:16 (צילום מלא מהנייד באנך) כדי לנצל את המסגרת ללא שוליים.</li>
+                        <li>גוף מלא בכל התמונות (מהראש ועד הרגליים) בתנוחת A טבעית.</li>
+                        <li>ביגוד צמוד שמראה צורת גוף ברורה על רקע אחיד.</li>
+                        <li>מצלמה בגובה המותניים, מרחק אחיד בכל התמונות.</li>
                     </ul>
                 `
             },
             both: {
                 slots: [
+                    { id: 'face-front', label: 'פנים - חזית', hint: '📸 פורטרט מקרוב חזית' },
+                    { id: 'face-left', label: 'פנים - פרופיל שמאל', hint: '📸 פורטרט מקרוב שמאל' },
+                    { id: 'face-right', label: 'פנים - פרופיל ימין', hint: '📸 פורטרט מקרוב ימין' },
                     { id: 'body-front', label: 'גוף - חזית', hint: '📸 גוף מלא פונה קדימה' },
                     { id: 'body-left', label: 'גוף - פרופיל שמאל', hint: '📸 גוף מלא פרופיל שמאל' },
                     { id: 'body-right', label: 'גוף - פרופיל ימין', hint: '📸 גוף מלא פרופיל ימין' },
-                    { id: 'body-back', label: 'גוף - גב', hint: '📸 גוף מלא מאחור' },
-                    { id: 'face-front', label: 'פנים - חזית', hint: '📸 פורטרט מקרוב חזית' },
-                    { id: 'face-left', label: 'פנים - פרופיל שמאל', hint: '📸 פורטרט מקרוב שמאל' },
-                    { id: 'face-right', label: 'פנים - פרופיל ימין', hint: '📸 פורטרט מקרוב ימין' }
+                    { id: 'body-back', label: 'גוף - גב', hint: '📸 גוף מלא מאחור' }
                 ],
                 guide: `
-                    <h3>🎯 הנחיות לדף דמות מלא:</h3>
+                    <h3>🎯 הנחיות לדף דמות מלא (מותאם AI):</h3>
                     <ul>
-                        <li>שורה עליונה: 4 צילומי גוף מלא</li>
-                        <li>שורה תחתונה: 3 פורטרטים מקרוב של הפנים</li>
-                        <li>רקע אחיד זהה לכל התמונות</li>
-                        <li>תאורה ומרחק זהים בכל צילום</li>
-                        <li>ביגוד וסגנון אחיד</li>
-                        <li>איכות גבוהה לכל התמונות (מינימום 1920x1080)</li>
-                        <li>השתמש בחצובה לייצוב מקסימלי</li>
+                        <li><strong>תמונות פנים (שורה עליונה):</strong> חייבות להיות ביחס 3:4 (פורטרט אנכי).</li>
+                        <li><strong>תמונות גוף (שורה תחתונה):</strong> חייבות להיות ביחס 9:16 (צילום סמארטפון אנכי).</li>
+                        <li>העלאה ביחסים אלו תייצר קולאז' במבנה ריבועי מושלם נטול שוליים לבנים.</li>
+                        <li>רקע אחיד ותאורה זהה לכל התמונות.</li>
+                        <li>השתמש בחצובה לייצוב ושמירת מרחק עקבי.</li>
                     </ul>
                 `
             }
@@ -684,7 +676,6 @@
                 setupUploadSlots();
             }
             
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -710,14 +701,12 @@
                     <input type="file" id="file-${slot.id}" accept="image/*" onchange="handleImageUpload('${slot.id}', this)">
                 `;
                 
-                // Click to upload
                 slotDiv.onclick = (e) => {
                     if (!e.target.classList.contains('remove-btn')) {
                         document.getElementById(`file-${slot.id}`).click();
                     }
                 };
                 
-                // Drag and drop support
                 slotDiv.ondragover = (e) => {
                     e.preventDefault();
                     slotDiv.classList.add('dragover');
@@ -730,7 +719,6 @@
                 slotDiv.ondrop = (e) => {
                     e.preventDefault();
                     slotDiv.classList.remove('dragover');
-                    
                     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                         handleImageFile(slot.id, e.dataTransfer.files[0]);
                     }
@@ -750,13 +738,10 @@
         }
 
         function handleImageFile(slotId, file) {
-            // Validate file type
             if (!file.type.match('image.*')) {
                 alert('אנא העלה קובץ תמונה בלבד');
                 return;
             }
-            
-            // Validate file size (max 10MB)
             if (file.size > 10 * 1024 * 1024) {
                 alert('גודל הקובץ חורג מ-10MB. אנא בחר תמונה קטנה יותר.');
                 return;
@@ -802,80 +787,94 @@
             document.getElementById('nextBtn2').disabled = !allUploaded;
         }
 
-        // פונקציית עזר לציור הקנבס - תומכת בציור עם או בלי טקסט
         function drawCollageToCanvas(canvas, includeText, onComplete) {
             const ctx = canvas.getContext('2d');
             const config = sheetConfigs[selectedType];
             
-            let canvasWidth, canvasHeight, cols, rows;
+            // רוחב בסיס שמתחלק ב-3 וגם ב-4
+            let canvasWidth = 3150; 
+            let canvasHeight;
             
+            // הגדרת גובה ה-Canvas בהתאם ליחסי התמונה
             if (selectedType === 'both') {
-                cols = 4;
-                rows = 2;
-                canvasWidth = 4800;
-                canvasHeight = 3200;
+                // שורת פנים (1400) + שורת גוף (1400)
+                canvasHeight = 2800; 
             } else if (selectedType === 'face') {
-                cols = 3;
-                rows = 2;
-                canvasWidth = 3600;
-                canvasHeight = 2400;
-            } else { // body
-                cols = 4;
-                rows = 1;
-                canvasWidth = 4800;
-                canvasHeight = 1600;
+                // 2 שורות פנים של 1400
+                canvasHeight = 2800; 
+            } else { 
+                // שורת גוף אחת
+                canvasHeight = 1400; 
             }
             
             canvas.width = canvasWidth;
             canvas.height = canvasHeight;
             
-            // White background
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
             
-            const cellWidth = canvasWidth / cols;
-            const cellHeight = canvasHeight / rows;
-            const padding = 50;
-            
+            const padding = 20; 
             let loadedCount = 0;
             const totalImages = config.slots.length;
             
             config.slots.forEach((slot, index) => {
                 const img = new Image();
                 img.onload = function() {
-                    const col = index % cols;
-                    const row = Math.floor(index / cols);
+                    let x, y, cellWidth, cellHeight;
                     
-                    const x = col * cellWidth + padding;
-                    const y = row * cellHeight + padding;
+                    if (selectedType === 'both') {
+                        if (index < 3) { 
+                            // שורה עליונה: פנים (3 תמונות)
+                            cellWidth = canvasWidth / 3; 
+                            cellHeight = 1400;
+                            x = index * cellWidth;
+                            y = 0;
+                        } else { 
+                            // שורה תחתונה: גוף (4 תמונות)
+                            let bodyIndex = index - 3;
+                            cellWidth = canvasWidth / 4; 
+                            cellHeight = 1400;
+                            x = bodyIndex * cellWidth;
+                            y = 1400;
+                        }
+                    } else if (selectedType === 'face') {
+                        cellWidth = canvasWidth / 3;
+                        cellHeight = 1400;
+                        x = (index % 3) * cellWidth;
+                        y = Math.floor(index / 3) * cellHeight;
+                    } else { // body
+                        cellWidth = canvasWidth / 4;
+                        cellHeight = 1400;
+                        x = (index % 4) * cellWidth;
+                        y = 0;
+                    }
+                    
                     const w = cellWidth - (padding * 2);
                     const h = cellHeight - (padding * 2);
+                    const drawX = x + padding;
+                    const drawY = y + padding;
                     
-                    // Draw image
                     const scale = Math.min(w / img.width, h / img.height);
                     const scaledW = img.width * scale;
                     const scaledH = img.height * scale;
-                    const offsetX = x + (w - scaledW) / 2;
-                    const offsetY = y + (h - scaledH) / 2;
+                    const offsetX = drawX + (w - scaledW) / 2;
+                    const offsetY = drawY + (h - scaledH) / 2;
                     
                     ctx.drawImage(img, offsetX, offsetY, scaledW, scaledH);
                     
-                    // Draw border
-                    ctx.strokeStyle = '#667eea';
-                    ctx.lineWidth = 6;
-                    ctx.strokeRect(x - 3, y - 3, w + 6, h + 6);
-                    
-                    // מניעת ציור טקסט ורקע במקרה של הורדה נקייה
+                    // ציור טקסט ומסגרת רק בתצוגה או בהדפסה, אך לא להורדה הנקייה ל-AI
                     if (includeText) {
-                        // Draw label background
-                        ctx.fillStyle = 'rgba(102, 126, 234, 0.9)';
-                        ctx.fillRect(x, y - 70, w, 70);
+                        ctx.strokeStyle = '#667eea';
+                        ctx.lineWidth = 6;
+                        ctx.strokeRect(drawX, drawY, w, h);
                         
-                        // Draw label text
+                        ctx.fillStyle = 'rgba(102, 126, 234, 0.9)';
+                        ctx.fillRect(drawX, drawY, w, 60);
+                        
                         ctx.fillStyle = '#ffffff';
-                        ctx.font = 'bold 48px Arial';
+                        ctx.font = 'bold 36px Arial';
                         ctx.textAlign = 'center';
-                        ctx.fillText(slot.label, x + w/2, y - 20);
+                        ctx.fillText(slot.label, drawX + w/2, drawY + 45);
                     }
                     
                     loadedCount++;
@@ -892,7 +891,6 @@
             
             setTimeout(() => {
                 const canvas = document.getElementById('previewCanvas');
-                // יצירת קנבס התצוגה המקדימה כולל טקסט
                 drawCollageToCanvas(canvas, true, () => {
                     document.getElementById('loadingOverlay').classList.remove('active');
                     goToStep(3);
@@ -904,10 +902,8 @@
             document.getElementById('loadingOverlay').classList.add('active');
             
             setTimeout(() => {
-                // יצירת קנבס וירטואלי שאינו קיים במסך
                 const offscreenCanvas = document.createElement('canvas');
-                
-                // ציור הקולאז' ללא טקסט
+                // יצירת הקולאז' עבור ההורדה ללא טקסט ומסגרות
                 drawCollageToCanvas(offscreenCanvas, false, () => {
                     const link = document.createElement('a');
                     const timestamp = new Date().toISOString().slice(0,10);
@@ -935,7 +931,6 @@
             }
         }
 
-        // Prevent accidental page leave
         window.addEventListener('beforeunload', function (e) {
             if (Object.keys(uploadedImages).length > 0) {
                 e.preventDefault();
