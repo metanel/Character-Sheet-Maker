@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="יצירת דפי דמות מקצועיים לאנימציה, משחקים ומודלינג">
-    <title>יוצר דף דמות מקצועי - Character Sheet Maker</title>
+    <meta name="description" content="יצירת דפי רפרנס מקצועיים לאנימציה, משחקים ומודלינג">
+    <title>יוצר רפרנסים מקצועי - Reference Sheet Maker</title>
     <style>
         * {
             margin: 0;
@@ -73,7 +73,7 @@
 
         .sheet-types {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -113,12 +113,14 @@
         .sheet-type-card p {
             color: #555;
             line-height: 1.6;
+            font-size: 0.9em;
         }
 
         .sheet-type-card ul {
             text-align: right;
             margin-top: 15px;
             color: #666;
+            font-size: 0.85em;
         }
 
         .sheet-type-card li {
@@ -403,6 +405,16 @@
             font-size: 1.2em;
         }
 
+        .guide-section ul ul {
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+
+        .guide-section ul ul li:before {
+            content: "- ";
+            color: #d63031;
+        }
+
         .btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -528,10 +540,6 @@
             .upload-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .sheet-types {
-                grid-template-columns: 1fr;
-            }
 
             .button-group {
                 flex-direction: column;
@@ -614,8 +622,8 @@
 
     <div class="container">
         <div class="header">
-            <h1>🎨 יוצר דף דמות מקצועי</h1>
-            <p>צור קולאז' מקצועי לדף דמות בקלות ובמהירות - מותאם למודלי AI</p>
+            <h1>🎨 יוצר רפרנסים מקצועי</h1>
+            <p>צור קולאז' מקצועי לדמות או לוקיישן בקלות ובמהירות - מותאם למודלי AI</p>
         </div>
 
         <div class="content">
@@ -624,43 +632,53 @@
                     <div class="progress-fill" style="width: 33%"></div>
                 </div>
                 
-                <h2 class="step-title">שלב 1: בחר סוג דף דמות</h2>
+                <h2 class="step-title">שלב 1: בחר סוג רפרנס</h2>
                 
                 <div class="sheet-types">
                     <div class="sheet-type-card" data-type="face" onclick="selectSheetType('face')">
                         <div class="emoji">😊</div>
                         <h3>פנים בלבד (FACE)</h3>
-                        <p>מתאים למודלים, שחקנים, ואנימציה תלת-ממדית של פנים</p>
+                        <p>מתאים למודלים, שחקנים, ואנימציה תלת-ממדית</p>
                         <ul>
                             <li>חזית (פנים קדימה)</li>
                             <li>גב הראש</li>
-                            <li>פרופיל ימין</li>
-                            <li>פרופיל שמאל</li>
-                            <li>חצי-פרופיל אחורי ימין</li>
-                            <li>חצי-פרופיל אחורי שמאל</li>
+                            <li>פרופיל ימין ושמאל</li>
+                            <li>חצי-פרופיל אחורי</li>
                         </ul>
                     </div>
 
                     <div class="sheet-type-card" data-type="body" onclick="selectSheetType('body')">
                         <div class="emoji">🧍</div>
                         <h3>גוף בלבד (BODY)</h3>
-                        <p>מתאים לעיצוב אופנה, אנימציה, ומשחקי וידאו</p>
+                        <p>מתאים לעיצוב אופנה ומשחקי וידאו</p>
                         <ul>
                             <li>חזית (תנוחת A)</li>
                             <li>גב</li>
-                            <li>פרופיל ימין</li>
-                            <li>פרופיל שמאל</li>
+                            <li>פרופיל ימין ושמאל</li>
                         </ul>
                     </div>
 
                     <div class="sheet-type-card" data-type="both" onclick="selectSheetType('both')">
                         <div class="emoji">🎬</div>
                         <h3>פנים + גוף (FULL)</h3>
-                        <p>דף דמות מלא למשחקים, סרטים, ואנימציה מקצועית</p>
+                        <p>דף דמות מלא למשחקים וסרטים</p>
                         <ul>
-                            <li>3 פורטרטים מקרוב (שורה עליונה)</li>
-                            <li>3 צילומי גוף מלא (שורה תחתונה)</li>
-                            <li>מערך נטול שוליים למקסום רזולוציה ב-AI</li>
+                            <li>3 פורטרטים מקרוב</li>
+                            <li>3 צילומי גוף מלא</li>
+                            <li>מערך נטול שוליים</li>
+                        </ul>
+                    </div>
+
+                    <div class="sheet-type-card" data-type="location" onclick="selectSheetType('location')">
+                        <div class="emoji">🌍</div>
+                        <h3>לוקיישן (LOCATION)</h3>
+                        <p>דף רפרנס לסביבה, טקסטורות ורקעים</p>
+                        <ul>
+                            <li>חזית (24mm)</li>
+                            <li>זווית ימנית (עם חפיפה)</li>
+                            <li>זווית שמאלית (עם חפיפה)</li>
+                            <li>תקריב טקסטורה (50mm)</li>
+                            <li>תקריב קרקע (50mm)</li>
                         </ul>
                     </div>
                 </div>
@@ -703,7 +721,7 @@
                     <div id="phone-instructions" class="camera-result">
                         <div class="result-grid">
                             <div class="result-card">
-                                <span class="result-label">🔍 עדשה מומלצת</span>
+                                <span class="result-label">🔍 עדשה מומלצת (לדמויות)</span>
                                 <span id="inst-lens" class="result-value"></span>
                             </div>
                             <div class="result-card">
@@ -745,7 +763,7 @@
                     <div class="progress-fill" style="width: 100%"></div>
                 </div>
                 
-                <h2 class="step-title">שלב 3: דף הדמות שלך מוכן! 🎉</h2>
+                <h2 class="step-title">שלב 3: הרפרנס שלך מוכן! 🎉</h2>
                 
                 <div class="info-box">
                     <strong>💡 שים לב:</strong> להזנה למודלי AI, השתמש בכפתור "הורד תמונה (ללא טקסט)" אשר שומר את התמונה כרפרנס נקי לחלוטין.
@@ -769,71 +787,34 @@
         let selectedType = null;
         let uploadedImages = {};
         
-        // נתוני המצלמות
         const phoneData = {
             "apple": [
-                { id: "ip_17_promax", name: "iPhone 17 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "מומלץ להשתמש ב-2x (חיתוך חיישן ראשי) למניעת התרחקות מוגזמת, או ב-5x אם יש לך חדר גדול מאוד." },
+                { id: "ip_17_promax", name: "iPhone 17 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "מומלץ להשתמש ב-2x (חיתוך חיישן ראשי) למניעת התרחקות מוגזמת." },
                 { id: "ip_17_pro", name: "iPhone 17 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "עדשת ה-3x מושלמת לפורטרט שטוח וללא עיוות." },
-                { id: "ip_17_base", name: "iPhone 17 / 17 Plus", lens: "מצלמה ראשית עם זום אופטי 2x", dist: "1.5 - 2 מטרים", note: "לחץ על כפתור ה-2x במסך כדי להפעיל את אורך המוקד האידיאלי." },
-                { id: "ip_16_promax", name: "iPhone 16 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "השתמש ב-2x אם החדר קטן, או ב-5x אם יש לך מספיק מרחק." },
-                { id: "ip_16_pro", name: "iPhone 16 Pro", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "החל מדגם זה הוכנסה עדשת 5x גם ל-Pro. העדף את ה-2x בחדרים קטנים." },
                 { id: "ip_16_base", name: "iPhone 16 / 16 Plus", lens: "מצלמה ראשית עם זום אופטי 2x", dist: "1.5 - 2 מטרים", note: "וודא שאתה במצב 2x ולא 1x כדי למנוע 'אפקט אף גדול'." },
-                { id: "ip_15_promax", name: "iPhone 15 Pro Max", lens: "עדשת טלפוטו 5x / עדשה ראשית 2x", dist: "2 - 2.5 מטרים", note: "השתמש באופציית ה-2x לקבלת מרחק עבודה נוח." },
                 { id: "ip_15_pro", name: "iPhone 15 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר ב-3x. זו העדשה האופטימלית לפרופורציות פנים טבעיות." },
-                { id: "ip_15_base", name: "iPhone 15 / 15 Plus", lens: "מצלמה ראשית עם זום אופטי 2x", dist: "1.5 - 2 מטרים", note: "השתמש באופציית ה-2x המובנית." },
-                { id: "ip_14_promax", name: "iPhone 14 Pro Max", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-3x הייעודית." },
-                { id: "ip_14_pro", name: "iPhone 14 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-3x הייעודית." },
-                { id: "ip_14_base", name: "iPhone 14 / 14 Plus", lens: "מצלמה ראשית (1x) עם התקרבות קלה", dist: "1.5 מטרים", note: "אין עדשת זום ייעודית. התרחק מעט מהמכשיר ועשה זום דיגיטלי ל-1.5x כדי למנוע עיוות." },
-                { id: "ip_13_promax", name: "iPhone 13 Pro Max", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר בעדשת ה-3x. שמור על יציבות מרבית (רצוי טיימר)." },
-                { id: "ip_13_pro", name: "iPhone 13 Pro", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר בעדשת ה-3x המובנית." },
-                { id: "ip_13_base", name: "iPhone 13 / 13 Mini", lens: "מצלמה ראשית (1x)", dist: "1.5 מטרים", note: "עמוד בדיוק במרכז. בצע זום דיגיטלי קל ל-1.5x." },
-                { id: "ip_12_promax", name: "iPhone 12 Pro Max", lens: "עדשת טלפוטו 2.5x", dist: "2 מטרים", note: "עדשת ה-2.5x מצוינת למטרה זו. הפעל טיימר כדי למנוע טשטוש." },
-                { id: "ip_12_pro", name: "iPhone 12 Pro", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש בעדשת ה-2x והקפד על תאורה טובה." },
-                { id: "ip_12_base", name: "iPhone 12 / 12 Mini", lens: "מצלמה ראשית (1x)", dist: "1.5 מטרים", note: "מרכז את עצמך לחלוטין. זום דיגיטלי קל ל-1.5x מומלץ." },
-                { id: "ip_11_pro_max", name: "iPhone 11 Pro / 11 Pro Max", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש בעדשת ה-2x האופטית." },
-                { id: "ip_11_base", name: "iPhone 11", lens: "מצלמה ראשית (1x)", dist: "1.5 מטרים", note: "מומלץ לבצע זום דיגיטלי ל-1.5x ולהתרחק." }
+                { id: "ip_14_base", name: "iPhone 14 / 14 Plus", lens: "מצלמה ראשית (1x) עם התקרבות קלה", dist: "1.5 מטרים", note: "התרחק מעט מהמכשיר ועשה זום דיגיטלי ל-1.5x כדי למנוע עיוות." },
+                { id: "ip_13_promax", name: "iPhone 13 Pro Max", lens: "עדשת טלפוטו 3x", dist: "2 - 2.5 מטרים", note: "בחר בעדשת ה-3x." },
+                { id: "ip_11_pro_max", name: "iPhone 11 Pro / 11 Pro Max", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש בעדשת ה-2x האופטית." }
             ],
             "samsung": [
-                { id: "sam_s26_ultra", name: "Galaxy S26 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "השתמש ב-3x או ב-5x (בהתאם לגודל החדר) לקבלת פורטרט נטול עיוותים לחלוטין." },
-                { id: "sam_s26_base", name: "Galaxy S26 / S26+", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "בחר ב-3x, זו העדשה האופטימלית במכשיר זה." },
-                { id: "sam_s25_ultra", name: "Galaxy S25 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "השתמש בעדשת ה-3x או ב-5x האופטית." },
+                { id: "sam_s26_ultra", name: "Galaxy S26 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "השתמש ב-3x או ב-5x (בהתאם לגודל החדר) לקבלת פורטרט נטול עיוותים." },
                 { id: "sam_s25_base", name: "Galaxy S25 / S25+", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "בחר בעדשת ה-3x." },
-                { id: "sam_s24_ultra", name: "Galaxy S24 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "שתיהן מצוינות. ה-5x דורשת מרחק עמידה גדול יותר." },
-                { id: "sam_s24_base", name: "Galaxy S24 / S24+ / S24 FE", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש בעדשת ה-3x לקבלת דיוק מרבי." },
-                { id: "sam_s23_ultra", name: "Galaxy S23 Ultra", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x. אל תשתמש ב-10x, היא מצריכה מרחק לא פרקטי בתוך בית." },
+                { id: "sam_s24_ultra", name: "Galaxy S24 Ultra", lens: "עדשת טלפוטו 3x או 5x", dist: "2.5 מטרים", note: "ה-5x דורשת מרחק עמידה גדול יותר." },
                 { id: "sam_s23_base", name: "Galaxy S23 / S23+ / S23 FE", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "בחר בעדשת ה-3x." },
-                { id: "sam_s22_ultra", name: "Galaxy S22 Ultra", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x." },
-                { id: "sam_s22_base", name: "Galaxy S22 / S22+", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x." },
-                { id: "sam_s21_ultra", name: "Galaxy S21 Ultra", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש ב-3x וודא שיש מספיק אור למניעת רעש דיגיטלי." },
-                { id: "sam_s21_base", name: "Galaxy S21 / S21+ / S21 FE", lens: "עדשת טלפוטו (היברידית) 3x", dist: "2.5 מטרים", note: "לחץ על כפתור ה-3x באפליקציית המצלמה." },
-                { id: "sam_fold", name: "Galaxy Z Fold (כל הדורות)", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש במצלמות האחוריות בעזרת המסך החיצוני כעינית (Cover Screen Preview)." },
-                { id: "sam_flip", name: "Galaxy Z Flip (כל הדורות)", lens: "מצלמה ראשית 1x (אין טלפוטו)", dist: "1.5 - 2 מטרים", note: "קפל את המכשיר ל-90 מעלות (Flex Mode), התרחק ובצע זום דיגיטלי של 1.5x-2x." }
+                { id: "sam_fold", name: "Galaxy Z Fold (כל הדורות)", lens: "עדשת טלפוטו 3x", dist: "2.5 מטרים", note: "השתמש במצלמות האחוריות בעזרת המסך החיצוני כעינית." }
             ],
             "pixel": [
                 { id: "pix_10_pro", name: "Pixel 10 Pro / 10 Pro XL", lens: "עדשת טלפוטו 5x / זום אופטי 2x", dist: "2 - 2.5 מטרים", note: "בחר ב-2x או ב-5x לפי מרחק העמידה האפשרי בחדר." },
-                { id: "pix_10_base", name: "Pixel 10", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "האלגוריתם של גוגל יבצע חיתוך איכותי מאוד ב-2x." },
-                { id: "pix_9_pro", name: "Pixel 9 Pro / 9 Pro XL", lens: "עדשת טלפוטו 5x / זום 2x", dist: "2 - 2.5 מטרים", note: "מומלץ להשתמש ב-2x במצב פורטרט (ללא טשטוש רקע) או במצב רגיל." },
                 { id: "pix_9_base", name: "Pixel 9", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "השתמש בזום ה-2x המובנה." },
                 { id: "pix_8_pro", name: "Pixel 8 Pro", lens: "עדשת טלפוטו 5x / זום 2x", dist: "2 - 2.5 מטרים", note: "השתמש ב-2x או 5x לקבלת פרופורציות נכונות." },
-                { id: "pix_8_base", name: "Pixel 8 / 8a", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "השתמש ב-2x (Super Res Zoom)." },
-                { id: "pix_7_pro", name: "Pixel 7 Pro", lens: "עדשת טלפוטו 5x / זום 2x", dist: "2 - 2.5 מטרים", note: "השתמש ב-2x או 5x." },
-                { id: "pix_7_base", name: "Pixel 7 / 7a", lens: "מצלמה ראשית עם זום 2x", dist: "1.5 - 2 מטרים", note: "השתמש ב-2x (Super Res Zoom)." },
-                { id: "pix_6_pro", name: "Pixel 6 Pro", lens: "עדשת טלפוטו 4x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-4x האופטית. היא מושלמת לכך." },
-                { id: "pix_6_base", name: "Pixel 6 / 6a", lens: "מצלמה ראשית (זום 2x)", dist: "1.5 - 2 מטרים", note: "השתמש ב-2x המובנה במסך." }
+                { id: "pix_6_pro", name: "Pixel 6 Pro", lens: "עדשת טלפוטו 4x", dist: "2 - 2.5 מטרים", note: "השתמש בעדשת ה-4x האופטית." }
             ],
             "xiaomi": [
-                { id: "xiaomi_16_ultra", name: "Xiaomi 16 Ultra", lens: "עדשת טלפוטו 3.2x (75mm) / 5x", dist: "2.5 מטרים", note: "עדשת ה-75mm (3.2x) של Leica נחשבת לאחת הטובות בעולם לפורטרטים. השתמש בה." },
-                { id: "xiaomi_16_pro", name: "Xiaomi 16 Pro", lens: "עדשת טלפוטו 3.2x (75mm)", dist: "2.5 מטרים", note: "השתמש בעדשת ה-75mm המותאמת לפורטרט." },
-                { id: "xiaomi_16_base", name: "Xiaomi 16", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
-                { id: "xiaomi_15_ultra", name: "Xiaomi 15 Ultra", lens: "עדשת טלפוטו 3.2x (75mm) / 5x", dist: "2.5 מטרים", note: "מומלץ להשתמש ב-3.2x." },
+                { id: "xiaomi_16_ultra", name: "Xiaomi 16 Ultra", lens: "עדשת טלפוטו 3.2x (75mm) / 5x", dist: "2.5 מטרים", note: "עדשת ה-75mm (3.2x) של Leica נחשבת לאחת הטובות לפורטרטים." },
                 { id: "xiaomi_15_pro", name: "Xiaomi 15 Pro", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
-                { id: "xiaomi_15_base", name: "Xiaomi 15", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
                 { id: "xiaomi_14_ultra", name: "Xiaomi 14 Ultra", lens: "עדשת טלפוטו 3.2x / 5x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
-                { id: "xiaomi_14_pro", name: "Xiaomi 14 / 14 Pro", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
-                { id: "xiaomi_13_ultra", name: "Xiaomi 13 Ultra / 13 Pro", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
-                { id: "xiaomi_13_base", name: "Xiaomi 13", lens: "עדשת טלפוטו 3.2x", dist: "2.5 מטרים", note: "השתמש ב-3.2x." },
-                { id: "xiaomi_12_pro", name: "Xiaomi 12 Pro", lens: "עדשת טלפוטו 2x", dist: "2 מטרים", note: "השתמש ב-2x." },
-                { id: "xiaomi_redmi_note", name: "Redmi Note (סדרות Pro/Pro+)", lens: "מצלמה ראשית (זום 2x מובנה)", dist: "1.5 - 2 מטרים", note: "לרוב דגמי ה-Redmi אין טלפוטו אופטי. השתמש בלחצן ה-2x, התרחק מעט ודאג לתאורה חזקה." }
+                { id: "xiaomi_redmi_note", name: "Redmi Note (סדרות Pro/Pro+)", lens: "מצלמה ראשית (זום 2x מובנה)", dist: "1.5 - 2 מטרים", note: "השתמש בלחצן ה-2x, התרחק מעט ודאג לתאורה חזקה." }
             ]
         };
 
@@ -886,11 +867,10 @@
                 guide: `
                     <h3>🎯 הנחיות לצילום פנים מקצועי:</h3>
                     <ul>
-                        <li><strong>יחס גובה-רוחב קריטי:</strong> אנא העלה תמונות ביחס 3:4 (פורטרט אנכי סטנדרטי) כדי למנוע היווצרות שוליים לבנים.</li>
-                        <li>השתמש ברקע אחיד (לבן, אפור או כחול) ללא צללים חזקים.</li>
-                        <li>הפנים במרכז התמונה, ביטוי פנים נייטרלי.</li>
-                        <li>שיער מסודר - אוזניים וצוואר חשופים.</li>
-                        <li>מרחק זהה מהמצלמה בכל התמונות.</li>
+                        <li><strong>יחס גובה-רוחב קריטי:</strong> תמונות ביחס 3:4 (פורטרט אנכי סטנדרטי).</li>
+                        <li>השתמש ברקע אחיד ללא צללים חזקים.</li>
+                        <li>ביטוי פנים נייטרלי, פנים במרכז התמונה.</li>
+                        <li>שיער מסודר, אוזניים וצוואר חשופים.</li>
                     </ul>
                 `
             },
@@ -904,32 +884,56 @@
                 guide: `
                     <h3>🎯 הנחיות לצילום גוף מקצועי:</h3>
                     <ul>
-                        <li><strong>יחס גובה-רוחב קריטי:</strong> אנא העלה תמונות ביחס 9:16 (צילום מלא מהנייד באנך) כדי לנצל את המסגרת ללא שוליים.</li>
-                        <li>גוף מלא בכל התמונות (מהראש ועד הרגליים) בתנוחת A טבעית.</li>
-                        <li>ביגוד צמוד שמראה צורת גוף ברורה על רקע אחיד.</li>
-                        <li>מצלמה בגובה המותניים, מרחק אחיד בכל התמונות.</li>
+                        <li><strong>יחס גובה-רוחב קריטי:</strong> תמונות ביחס 9:16 (אנכי).</li>
+                        <li>גוף מלא בכל התמונות בתנוחת A טבעית.</li>
+                        <li>ביגוד צמוד על רקע אחיד.</li>
+                        <li>מצלמה בגובה המותניים, מרחק אחיד.</li>
                     </ul>
                 `
             },
             both: {
                 slots: [
-                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה יחס 3:4', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890108/%D7%A6%D7%95%D7%A8_%D7%A4%D7%95%D7%A8%D7%98%D7%A8%D7%98_%D7%A4%D7%95%D7%98%D7%95-%D7%A8%D7%99%D7%90%D7%9C%D7%99%D7%A1%D7%98%D7%99_202603301918_t2sz6v.jpg' },
-                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות (מומלץ לצד ימין) יחס 3:4', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890103/Create_photorealistic_portrait_202603301922_wfcstt.jpg' },
-                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות (לאותו צד) יחס 3:4', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890059/Photo-realistic_portrait_side_202603301927_kvnxwx.jpg' },
-                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם יחס 9:16', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890088/Character_standing__full_202603301922_j1mvo2.jpg' },
-                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם (מופנה לאותו צד) יחס 9:16', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890063/%D7%AA%D7%99%D7%99%D7%A6%D7%A8_%D7%AA%D7%9E%D7%95%D7%A0%D7%AA_%D7%9E%D7%A8%D7%90%D7%94_202603301925_zg0kud.jpg' },
-                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם יחס 9:16', exampleImg: 'https://res.cloudinary.com/dhkn7tjxq/image/upload/v1774890068/Character_back_view_202603301923_jo1cwb.jpg' }
+                    { id: 'face-front', label: 'תמונה 1: פנים חזית', hint: '📸 חזיתית לחלוטין מול המצלמה יחס 3:4' },
+                    { id: 'face-34', label: 'תמונה 2: פנים זווית 3/4', hint: '📸 הראש מסובב קלות יחס 3:4' },
+                    { id: 'face-profile', label: 'תמונה 3: פנים פרופיל', hint: '📸 הראש מופנה 90 מעלות יחס 3:4' },
+                    { id: 'body-front', label: 'תמונה 4: גוף חזית', hint: '📸 חזית מלאה, גוף שלם יחס 9:16' },
+                    { id: 'body-side', label: 'תמונה 5: גוף פרופיל', hint: '📸 צד מלא, גוף שלם (אותו כיוון) יחס 9:16' },
+                    { id: 'body-back', label: 'תמונה 6: גוף גב', hint: '📸 מבט מאחור, גוף שלם יחס 9:16' }
                 ],
                 guide: `
-                    <h3>🎯 הנחיות לדף דמות ממוקד ואיכותי (מותאם AI):</h3>
+                    <h3>🎯 הנחיות לדף דמות מלא:</h3>
                     <ul>
-                        <li><strong>עקביות כיוונית חובה:</strong> בחר צד אחד (לדוגמה, צד ימין) וצלם אליו את כל זוויות הצד (3/4, פרופיל פנים, פרופיל גוף). אין לערבב צד ימין ושמאל באותו קולאז'.</li>
-                        <li><strong>תמונה 1: חזית פנים (Front Face).</strong> יחס של 3:4 (Portrait). זווית: חזיתית לחלוטין מול המצלמה. חיתוך: מקודקוד הראש ועד קו החזה. תאורת סטודיו רכה ואחידה. רקע סטודיו בצבע ניטרלי, חלק ונקי מכל חפץ, שאינו מחזיר אור צבעוני (Color cast).</li>
-                        <li><strong>תמונה 2: זווית שלושת-רבעי (3/4 Face).</strong> יחס של 3:4. זווית: 3/4 פנים, הראש מסובב קלות לאותו צד נבחר (כך שרואים את עומק האף והלחי). חיתוך: מקודקוד עד החזה. רקע ותאורת סטודיו ניטרלית.</li>
-                        <li><strong>תמונה 3: פרופיל פנים (Profile Face).</strong> יחס של 3:4. זווית: פרופיל צד מלא, מופנה 90 מעלות לאותו צד נבחר. הצג במדויק את קו הלסת, האף ומבנה הגולגולת. חיתוך: מקודקוד עד החזה. רקע ותאורה ניטרליים.</li>
-                        <li><strong>תמונה 4: חזית גוף מלא (Front Full Body).</strong> יחס 9:16 (Tall Portrait). זווית: חזית מלאה, גוף שלם מכף רגל ועד קודקוד הראש פונה ישירות למצלמה. יציבה: עמידה טבעית, רגועה וניטרלית. ביגוד: פשוט, חלק וללא הדפסים. ללא חיתוך איברים. תאורה ורקע ניטרליים ללא החזרות אור.</li>
-                        <li><strong>תמונה 5: פרופיל גוף מלא (Side Full Body).</strong> יחס 9:16. זווית: צד מלא, גוף שלם מכף רגל עד קודקוד, 90 מעלות למצלמה, פונה לאותו צד נבחר. יציבה טבעית להצגת הפרופורציות. ללא חיתוך איברים. תאורה ורקע ניטרליים.</li>
-                        <li><strong>תמונה 6: גב גוף מלא (Back Full Body).</strong> יחס 9:16. זווית: מבט מאחור, גוף שלם מכף רגל ועד קודקוד. יציבה טבעית, תאורה רכה השומרת על טקסטורת הבגד. רקע ניטרלי ללא צללים וחפצים.</li>
+                        <li><strong>עקביות כיוונית חובה:</strong> בחר צד אחד וצלם אליו את כל זוויות הצד.</li>
+                        <li>תמונות פנים ביחס 3:4, מקודקוד עד החזה.</li>
+                        <li>תמונות גוף ביחס 9:16, מכף רגל עד קודקוד.</li>
+                    </ul>
+                `
+            },
+            location: {
+                slots: [
+                    { id: 'loc-front', label: 'תמונה 1: חזית הלוקיישן', hint: '📸 מרכז הכובד הויזואלי של המקום | 16:9 | 24mm' },
+                    { id: 'loc-right', label: 'תמונה 2: זווית ימנית', hint: '📸 סיבוב 45-60° ימינה עם 20%-30% חפיפה לתמונה 1 | 16:9 | 24mm' },
+                    { id: 'loc-left', label: 'תמונה 3: זווית שמאלית', hint: '📸 סיבוב 45-60° שמאלה מנקודת האמצע עם חפיפה | 16:9 | 24mm' },
+                    { id: 'loc-texture', label: 'תמונה 4: תקריב טקסטורה', hint: '📸 תקריב של חומר מרכזי במקום (קיר/עץ/אבן) | 16:9 | 50mm' },
+                    { id: 'loc-ground', label: 'תמונה 5: תקריב קרקע', hint: '📸 תקריב מזווית נמוכה של האדמה/ריצוף | 16:9 | 50mm' }
+                ],
+                guide: `
+                    <h3>🎯 הנחיות לצילום לוקיישן מקצועי (מותאם AI):</h3>
+                    <ul>
+                        <li><strong>יחס תמונה חובה:</strong> כל התמונות חייבות להיות מצולמות לרוחב (Landscape, יחס 16:9).</li>
+                        <li><strong>שורה עליונה (מרחב פנורמי - עדשת 24mm הרחבה):</strong>
+                            <ul>
+                                <li><strong>תמונה 1: חזית הלוקיישן.</strong> מוקד הסצנה. צלם מגובה אנושי עם תאורה טבעית.</li>
+                                <li><strong>תמונה 2: זווית ימנית.</strong> עמוד באותה נקודה של תמונה 1, סובב מצלמה כ-45-60 מעלות ימינה. חובה לשמור על חפיפה ויזואלית של כ-20%-30% עם תמונה 1 למניעת עיוותים מרחביים.</li>
+                                <li><strong>תמונה 3: זווית שמאלית.</strong> עמוד באותה נקודה, סובב מצלמה שמאלה מהמרכז. שמור על חפיפה ויזואלית זהה.</li>
+                            </ul>
+                        </li>
+                        <li><strong>שורה תחתונה (תקריבים - עדשת 50mm הסטנדרטית):</strong>
+                            <ul>
+                                <li><strong>תמונה 4: תקריב טקסטורה.</strong> התמקד בחומר, חספוס או בלאי טבעי של אובייקט בולט בלוקיישן. עדשת 50mm מונעת עיוות פרספקטיבה (Barrel Distortion).</li>
+                                <li><strong>תמונה 5: תקריב קרקע.</strong> זווית נמוכה, ממוקדת באדמה או בריצוף תוך שמירה על עקביות תאורה טבעית.</li>
+                            </ul>
+                        </li>
                     </ul>
                 `
             }
@@ -973,7 +977,7 @@
                 slotDiv.className = 'upload-slot';
                 slotDiv.setAttribute('data-slot-id', slot.id);
                 
-                let exampleHtml = slot.exampleImg ? `<img src="${slot.exampleImg}" class="example-img" alt="דוגמה לתמונה">` : '';
+                let exampleHtml = slot.exampleImg ? `<img src="${slot.exampleImg}" class="example-img" alt="דוגמה">` : '';
                 
                 slotDiv.innerHTML = `
                     ${exampleHtml}
@@ -1082,6 +1086,9 @@
             } else if (selectedType === 'face') {
                 canvasWidth = 3240;
                 canvasHeight = 2880; 
+            } else if (selectedType === 'location') {
+                canvasWidth = 5760; // 3 תמונות לרוחב (1920)
+                canvasHeight = 2160; // 2 שורות (1080)
             } else { 
                 canvasWidth = 4320; 
                 canvasHeight = 1920; 
@@ -1119,7 +1126,21 @@
                         cellHeight = 1440;
                         x = (index % 3) * cellWidth;
                         y = Math.floor(index / 3) * cellHeight;
+                    } else if (selectedType === 'location') {
+                        cellWidth = 1920;
+                        cellHeight = 1080;
+                        if (index < 3) { 
+                            // שורה עליונה (3 תמונות)
+                            x = index * cellWidth;
+                            y = 0;
+                        } else { 
+                            // שורה תחתונה (2 תמונות במרכז הקנבס)
+                            let bottomIndex = index - 3;
+                            x = 960 + (bottomIndex * cellWidth); 
+                            y = 1080;
+                        }
                     } else { 
+                        // גוף
                         cellWidth = 1080;
                         cellHeight = 1920;
                         x = (index % 4) * cellWidth;
@@ -1182,7 +1203,7 @@
                 drawCollageToCanvas(offscreenCanvas, false, () => {
                     const link = document.createElement('a');
                     const timestamp = new Date().toISOString().slice(0,10);
-                    link.download = `character-sheet-${selectedType}-${timestamp}.png`;
+                    link.download = `reference-sheet-${selectedType}-${timestamp}.png`;
                     link.href = offscreenCanvas.toDataURL('image/png', 1.0);
                     link.click();
                     document.getElementById('loadingOverlay').classList.remove('active');
